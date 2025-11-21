@@ -6,9 +6,9 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-full overflow-x-hidden relative">
       {/* Navbar */}
-      <div className="sticky top-0 z-50 w-full border-b border-[#4a6a5033] backdrop-blur-sm bg-white/70">
+      <div className="fixed top-0 z-50 w-full border-b border-[#4a6a5033] backdrop-blur-sm bg-white/70">
         <div className="mx-auto max-w-7xl flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
           {/* Logo */}
           <div className="flex items-center gap-8">

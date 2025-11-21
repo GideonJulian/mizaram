@@ -23,7 +23,7 @@ function Home() {
   return (
     <div className="">
       <section className="relative">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
           <div className="hero flex min-h-[500px] flex-col items-center justify-center gap-6 rounded-xl bg-cover bg-center bg-no-repeat p-8 text-center">
             <div className="flex flex-col gap-4 max-w-2xl">
               {/* Heading with on-load animation */}
