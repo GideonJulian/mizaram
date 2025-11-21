@@ -21,15 +21,20 @@ function Navbar() {
             </Link>
           </nav>
         </div>
-        <div className="relative hidden sm:block">
-          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#888">
-            Search
-          </span>
-          <input
-          placeholder='Search'
-            type="text"
-            className="form-input h-10 w-40 rounded-full border-0 bg-[#0000000d] pl-10 pr-4 text-sm placeholder:text[#888]  focus:ring-2 focus:ring-primary/50"
-          />
+        <div className="flex items-center justify-end gap-2 sm:gap-4">
+          <div className="relative hidden sm:block">
+            <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#888">
+              Search
+            </span>
+            <input
+              placeholder="Search"
+              type="text"
+              className="form-input h-10 w-40 rounded-full border-0 bg-[#0000000d] pl-10 pr-4 text-sm placeholder:text[#888]  focus:ring-2 focus:ring-primary/50"
+            />
+          </div>
+          <button className="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-transparent transition-colors hover:bg-[#0000000d]">
+            <span className="material-symbols-outlined text-2xl">person</span>
+          </button>
         </div>
       </div>
     </div>
