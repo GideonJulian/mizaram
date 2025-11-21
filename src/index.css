@@ -3,6 +3,7 @@
 body {
 
     background-color: #f7f5f2;
+    overflow-x: hidden;
 }
 @font-face {
   font-family: 'Material Symbols Outlined';
