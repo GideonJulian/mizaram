@@ -1,5 +1,5 @@
 import React from "react";
-
+import { motion } from "framer-motion";
 function ProductCard({ product }) {
   return (
     <div className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden">
@@ -25,9 +25,24 @@ function ProductCard({ product }) {
           </p>
         </div>
 
-        <button className="flex w-full items-center justify-center h-9 sm:h-10 rounded-full bg-[#80ec1333] hover:bg-[#80ec134d] text-[#141811] text-sm font-bold transition-colors">
+        <motion.button
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.3,
+            type: 'spring',
+            stiffness:100,
+          }}
+          whileHover={{
+            scale: 1.03,
+            boxShadow: "0px 4px 5px rgba(74,106,80,0.4)",
+          }}
+          whileTap={{ scale: 0.98 }}
+          className="flex w-full cursor-pointer items-center justify-center h-9 sm:h-10 rounded-full bg-[#80ec1333] hover:bg-[#80ec134d] text-[#141811] text-sm font-bold transition-colors"
+        >
           Add to Cart
-        </button>
+        </motion.button>
       </div>
     </div>
   );

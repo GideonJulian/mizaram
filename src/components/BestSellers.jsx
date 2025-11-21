@@ -8,10 +8,34 @@ import { motion } from "framer-motion";
 
 function BestSellers() {
   const products = [
-    { id: 1, name: "Hydrating Serum", image: pro1, price: "$29.99", desc: 'For dewy, plump skin' },
-    { id: 2, name: "Gentle Cleanser", image: pro2, price: "$29.99", desc: 'Purifies without stripping' },
-    { id: 3, name: "Vitamin C Eye Cream", image: pro3, price: "$29.99", desc: 'Reduces puffiness and dark circles' },
-    { id: 4, name: "Nourishing Oil", image: pro4, price: "$29.99", desc: 'For soft & smooth skin' },
+    {
+      id: 1,
+      name: "Hydrating Serum",
+      image: pro1,
+      price: "$29.99",
+      desc: "For dewy, plump skin",
+    },
+    {
+      id: 2,
+      name: "Gentle Cleanser",
+      image: pro2,
+      price: "$29.99",
+      desc: "Purifies without stripping",
+    },
+    {
+      id: 3,
+      name: "Vitamin C Eye Cream",
+      image: pro3,
+      price: "$29.99",
+      desc: "Reduces puffiness and dark circles",
+    },
+    {
+      id: 4,
+      name: "Nourishing Oil",
+      image: pro4,
+      price: "$29.99",
+      desc: "For soft & smooth skin",
+    },
   ];
 
   return (
@@ -34,6 +58,24 @@ function BestSellers() {
           </motion.div>
         ))}
       </div>
+      <motion.button
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.6,
+          type: "spring",
+          stiffness: 120,
+        }}
+        whileHover={{
+          scale: 1.07,
+          boxShadow: "0px 8px 20px rgba(74,106,80,0.4)",
+        }}
+        whileTap={{ scale: 0.98 }}
+        className="flex max-w-xs mx-auto mt-20 cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[#4a6a50] text-white text-base font-bold"
+      >
+        Shop The Collection
+      </motion.button>
     </section>
   );
 }
