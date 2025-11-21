@@ -6,6 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mizaram</title>
   </head>
+    <style>
+      /* https://lh3.googleusercontent.com/aida-public/AB6AXuBsjuyLMzGl7v1bjzGrBLb6xiFlPQqg7KRMmE5b_RDI1x2Uis85n6G4azYw_Bfxj805SOaucNkDl7apqUlhwphjJHykRjFGff4lQ5AiZ5bb7O4CgdDkqROpVjQQHxr6dNuw1v_b1j434Kphe7VwuhsgE3A6TWh0vmaKQ9EAbVrd392YMpqUHTgiuU0iJGVukw6kWfTWRslvMKkEkGvESxEeMIeXYoxyMcNQWNLim59NIU5Ioo3L2B8LELm7c5coajaylhYwDPxukVk */
+    .hero {
+      width: 100%;
+      height: 300px;
+
+      /* The correct way to apply gradient + image */
+      background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+        url("/src/assets/hero.png");
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      border-radius: 12px;
+    }
+  </style>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
