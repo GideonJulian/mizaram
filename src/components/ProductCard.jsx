@@ -5,7 +5,7 @@ function ProductCard({ product }) {
     <div className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden">
       {/* Product Image */}
       <div
-        className="w-full aspect-[3/4] bg-cover bg-center transition-transform duration-500 hover:scale-105 rounded-t-xl"
+        className="w-full md:aspect-3/3 aspect-3/4 bg-cover bg-center transition-transform duration-500 hover:scale-105 rounded-t-xl"
         style={{ backgroundImage: `url(${product.image})` }}
       ></div>
 
