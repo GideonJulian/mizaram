@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import BestSellers from "../components/BestSellers";
 
 function Home() {
   return (
@@ -49,6 +50,9 @@ function Home() {
           </div>
         </div>
       </section>
+      <div>
+        <BestSellers />
+      </div>
     </div>
   );
 }
