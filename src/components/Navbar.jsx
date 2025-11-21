@@ -21,6 +21,16 @@ function Navbar() {
             </Link>
           </nav>
         </div>
+        <div className="relative hidden sm:block">
+          <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#888">
+            Search
+          </span>
+          <input
+          placeholder='Search'
+            type="text"
+            className="form-input h-10 w-40 rounded-full border-0 bg-[#0000000d] pl-10 pr-4 text-sm placeholder:text[#888]  focus:ring-2 focus:ring-primary/50"
+          />
+        </div>
       </div>
     </div>
   );
