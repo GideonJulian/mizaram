@@ -109,6 +109,9 @@ function Home() {
           ))}
         </div>
       </section>
+     <section className="py-10 px-4 sm:px-6 lg:px-8">
+
+      </section>
     </div>
   );
 }
