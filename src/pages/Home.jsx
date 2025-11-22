@@ -81,61 +81,96 @@ function Home() {
       <div>
         <BestSellers />
       </div>
-      <section className="py-10 px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-4 max-w-2xl mx-auto text-center">
-          <h1 className="text-[#141811] dark:text-background-light text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-            Pure, Potent, Proven
-          </h1>
-          <p className="text-gray-600  text-base font-normal leading-normal">
-            Our commitment to clean beauty means you never have to compromise on
-            results or your values.
+    <section className="py-10 px-4 sm:px-6 lg:px-8">
+  <div className="flex flex-col gap-4 max-w-2xl mx-auto text-center">
+    <h1 className="text-[#141811] dark:text-background-light text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+      Pure, Potent, Proven
+    </h1>
+    <p className="text-gray-600 text-base font-normal leading-normal">
+      Our commitment to clean beauty means you never have to compromise on
+      results or your values.
+    </p>
+  </div>
+
+  {/* Horizontal Scroll on Mobile */}
+  <div
+    className="
+      mt-8 
+      flex 
+      gap-6 
+      overflow-x-auto 
+      pb-4 
+      px-1
+      scrollbar-hide 
+      snap-x snap-mandatory 
+      
+      md:overflow-visible 
+      md:justify-center 
+      md:flex-wrap
+    "
+  >
+    {data.map((item, index) => (
+      <div
+        key={index}
+        className="
+          flex-shrink-0 
+          w-64 
+          md:w-80 
+          snap-center
+          bg-white 
+          dark:bg-background-dark/50 
+          border border-[#80ec1333] 
+          rounded-2xl 
+          p-6 
+          shadow-md 
+          hover:shadow-xl 
+          transition-all duration-300 
+          hover:scale-105 
+          cursor-pointer
+        "
+      >
+        <span className="material-symbols-outlined text-4xl text-[#80ec13] mb-4">
+          {item.icon}
+        </span>
+
+        <div className="flex flex-col gap-1">
+          <h2 className="text-[#141811] dark:text-background-light text-lg font-bold leading-snug">
+            {item.title}
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+            {item.desc}
           </p>
         </div>
+      </div>
+    ))}
+  </div>
+</section>
+<section className="py-10 px-4 sm:px-6 lg:px-8">
+  <h1 className="text-[#141811] dark:text-background-light text-2xl font-bold leading-tight tracking-tight mb-6 text-center">
+    Shop by Concern
+  </h1>
 
-        {/* Horizontal Scroll Container */}
-        <div className="mt-8 flex  flex-col md:flex-row items-center gap-6 justify-center -mx-4 pb-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 ">
-          {data.map((item, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-full sm:w-80 bg-white dark:bg-background-dark/50 border border-[#80ec1333] rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
-            >
-              {/* Icon */}
-              <span className="material-symbols-outlined text-4xl text-[#80ec13] mb-4">
-                {item.icon}
-              </span>
+  <div className="flex flex-wrap justify-center gap-6">
+    {concernData.map((conc, index) => (
+      <Link
+        key={index}
+        className="group relative flex h-60 w-full sm:w-80 lg:w-96 items-end justify-start overflow-hidden rounded-xl p-4 text-white no-underline shadow-lg transition-transform duration-300 hover:scale-105"
+      >
+        {/* Background Image with Gradient */}
+        <div
+          className="absolute inset-0 h-full w-full bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
+          style={{
+            backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.1)), url('${conc.image}')`,
+          }}
+        ></div>
 
-              {/* Title & Description */}
-              <div className="flex flex-col gap-1">
-                <h2 className="text-[#141811] dark:text-background-light text-lg font-bold leading-snug">
-                  {item.title}
-                </h2>
-                <p className="text-gray-500 dark:text-gray-400 text-sm font-normal leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="py-10 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-[#141811] dark:text-background-light text-2xl font-bold leading-tight tracking-tight px-4 pb-4 pt-5 text-center">
-          Shop by Concern
-        </h1>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {concernData.map((conc, index)=> {
-            <Link key={index} className="group relative flex h-60 items-end justify-start overflow-hidden rounded-xl p-6 text-white no-underline shadow-lg"> 
-            <div
-              className="absolute inset-0 h-full w-full bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
-              style={{
-                backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.1)), 
-                    url('${pic1}')`,
-              }}
-            ></div>
-            <h3 className="relative z-10 text-xl font-bold">{conc.title}</h3>
-          </Link>
-          })}
-        </div>
-      </section>
+        {/* Title */}
+        <h3 className="relative z-10 text-xl font-bold">{conc.title}</h3>
+      </Link>
+    ))}
+  </div>
+</section>
+ 
     </div>
   );
 }
