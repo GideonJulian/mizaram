@@ -1,7 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import BestSellers from "../components/BestSellers";
-
+import { Link } from "react-router-dom";
+import pic1 from "../assets/images/pic1.png";
+import pic2 from "../assets/images/pic2.png";
+import pic3 from "../assets/images/pic3.png";
 function Home() {
   const data = [
     {
@@ -20,6 +23,11 @@ function Home() {
       desc: "Safe and effective for all skin types, including the most sensitive.",
     },
   ];
+  const concernData = [
+    { title: "Hydration", image: pic1 },
+    { title: "Anti-Aging", image: pic2 },
+    { title: "Brightening", image: pic3 },
+  ]
   return (
     <div className="">
       <section className="relative">
@@ -109,8 +117,24 @@ function Home() {
           ))}
         </div>
       </section>
-     <section className="py-10 px-4 sm:px-6 lg:px-8">
-
+      <section className="py-10 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-[#141811] dark:text-background-light text-2xl font-bold leading-tight tracking-tight px-4 pb-4 pt-5 text-center">
+          Shop by Concern
+        </h1>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {concernData.map((conc, index)=> {
+            <Link key={index} className="group relative flex h-60 items-end justify-start overflow-hidden rounded-xl p-6 text-white no-underline shadow-lg"> 
+            <div
+              className="absolute inset-0 h-full w-full bg-cover bg-center transition-transform duration-500 ease-in-out group-hover:scale-110"
+              style={{
+                backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.1)), 
+                    url('${pic1}')`,
+              }}
+            ></div>
+            <h3 className="relative z-10 text-xl font-bold">{conc.title}</h3>
+          </Link>
+          })}
+        </div>
       </section>
     </div>
   );
