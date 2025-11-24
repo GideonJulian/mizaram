@@ -7,7 +7,8 @@ import ProductCard from "../components/ProductCard";
 function Shop() {
   const [selectedType, setSelectedType] = useState("all");
   const [showTypeMenu, setShowTypeMenu] = useState(false);
-const [searchTerm, setSearchTerm] = useState("");
+  const [DropsearchTerm, setDropSearchTerm] = useState("");
+  const [searchBarTerm, setSearchBarTerm] = useState("");
   // Dummy Products (DO NOT MAP YET)
   const products = [
     {
@@ -46,10 +47,19 @@ const [searchTerm, setSearchTerm] = useState("");
     "body wash",
     "face wash",
     "body spray",
-    'Serum',
-    'Moisturizer',
-    'Sunscreen',
+    "Serum",
+    "Moisturizer",
+    "Sunscreen",
   ];
+  const filteredTypes = productTypes.filter((type) =>
+    type.toLowerCase().includes(
+      DropsearchTerm.toLowerCase())
+  );
+  const filterProductsBySearch = products.filter((product) => 
+    product.name.toLowerCase().includes(
+      searchBarTerm.toLowerCase()
+    )
+)
 
   return (
     <div className="container mx-auto px-6 py-20 flex flex-col gap-8">
@@ -82,42 +92,41 @@ const [searchTerm, setSearchTerm] = useState("");
         </button>
 
         {/* Dropdown */}
-      {showTypeMenu && (
-  <div className="absolute left-0 mt-12 w-56 bg-white dark:bg-surface-dark rounded-lg shadow-md border border-border-light dark:border-border-dark z-20 p-2">
+        {showTypeMenu && (
+          <div className="absolute left-0 mt-12 w-56 bg-white dark:bg-surface-dark rounded-lg shadow-md border border-border-light dark:border-border-dark z-20 p-2">
+            {/* Search Bar */}
+            <input
+              type="text"
+              placeholder="Search type..."
+              className="w-full mb-2 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-dark text-sm focus:outline-none"
+              value={DropsearchTerm}
+              onChange={(e) => setDropSearchTerm(e.target.value)}
+            />
 
-    {/* Search Bar */}
-    <input
-      type="text"
-      placeholder="Search type..."
-      className="w-full mb-2 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-dark text-sm focus:outline-none"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-    />
-
-    {/* Scrollable List */}
-    <div className="max-h-48 overflow-y-auto">
-      {filteredTypes.length > 0 ? (
-        filteredTypes.map((type) => (
-          <button
-            key={type}
-            onClick={() => {
-              setSelectedType(type);
-              setShowTypeMenu(false);
-              setSearchTerm("");
-            }}
-            className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 capitalize rounded-md"
-          >
-            {type}
-          </button>
-        ))
-      ) : (
-        <p className="text-sm text-gray-500 dark:text-gray-400 px-3 py-2">
-          No match found
-        </p>
-      )}
-    </div>
-  </div>
-)}
+            {/* Scrollable List */}
+            <div className="max-h-48 overflow-y-auto">
+              {filteredTypes.length > 0 ? (
+                filteredTypes.map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => {
+                      setSelectedType(type);
+                      setShowTypeMenu(false);
+                      setDropSearchTerm("");
+                    }}
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-[#80ec1333] capitalize rounded-md cursor-pointer"
+                  >
+                    {type}
+                  </button>
+                ))
+              ) : (
+                <p className="text-sm text-gray-500 dark:text-gray-400 px-3 py-2">
+                  No match found
+                </p>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Skin Concern Button (placeholder) */}
         <button className="flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark px-4 hover:border-[#4a6b53] transition-colors">
@@ -143,9 +152,17 @@ const [searchTerm, setSearchTerm] = useState("");
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-        {products.map((product)=> (
-          <ProductCard key={product.id} product={product} />
-        ))}
+     {
+        filterProductsBySearch.map((product)=> {
+          filterProductsBySearch.length > 0 ? (
+            <ProductCard key={product.id} product={product} />
+          ) : (
+            <p className="text-sm text-gray-500 dark:text-gray-400 px-3 py-2">
+              No products found
+            </p>
+          )
+        })
+     }
       </div>
     </div>
   );
