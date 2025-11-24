@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 function ProductCard({ product }) {
   return (
-    <div className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden">
+    <div className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden" >
       {/* Product Image */}
       <div
         className="w-full md:aspect-3/3 aspect-3/4 bg-cover bg-center transition-transform duration-500 hover:scale-105 rounded-t-xl"

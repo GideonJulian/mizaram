@@ -1,11 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import BestSellers from "../components/BestSellers";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pic1 from "../assets/images/pic1.png";
 import pic2 from "../assets/images/pic2.png";
 import pic3 from "../assets/images/pic3.png";
 function Home() {
+  const navigate = useNavigate()
+
   const data = [
     {
       icon: "cruelty_free",
@@ -70,7 +72,8 @@ function Home() {
                   boxShadow: "0px 8px 20px rgba(74,106,80,0.4)",
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="flex max-w-xs mx-auto items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[#4a6a50] text-white text-base font-bold"
+                onClick={()=> navigate('/shop')}
+                className="flex cursor-pointer max-w-xs mx-auto items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[#4a6a50] text-white text-base font-bold"
               >
                 Shop The Collection
               </motion.button>
@@ -176,3 +179,7 @@ function Home() {
 }
 
 export default Home;
+// 
+// 
+// 
+// 

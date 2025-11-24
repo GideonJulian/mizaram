@@ -19,7 +19,7 @@ function Navbar() {
 
             {/* Desktop Menu */}
             <nav className="hidden md:flex items-center gap-8">
-              <Link className="text-sm font-medium hover:text-primary">Shop</Link>
+              <Link className="text-sm font-medium hover:text-primary" to={'/shop'}>Shop</Link>
               <Link className="text-sm font-medium hover:text-primary">Our Story</Link>
               <Link className="text-sm font-medium hover:text-primary">Contact</Link>
             </nav>
