@@ -73,6 +73,22 @@ function Shop() {
     return matchType && matchSearch;
   });
 
+  const itemsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+
+  // Change page with animation reset
+  const changePage = (page) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+  };
   return (
     <div className="container mx-auto px-6 py-20 flex flex-col gap-8">
       {/* Header + Search Bar */}
@@ -177,44 +193,87 @@ function Shop() {
       </div>
 
       {/* PRODUCTS GRID */}
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
+      <motion.div
+        key={currentPage} // triggers animation on page change
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10"
+      >
+        {paginatedProducts.length > 0 ? (
+          paginatedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))
         ) : (
           <div className="">
             <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.2 }}
-            className="flex flex-col  items-center justify-center px-3 py-4 text-center"
-          >
-            <span className="material-symbols-outlined  text-gray-400 text-8xl mb-1">
-              search_off
-            </span>
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col  items-center justify-center px-3 py-4 text-center"
+            >
+              <span className="material-symbols-outlined  text-gray-400 text-8xl mb-1">
+                search_off
+              </span>
 
-            <p className="text-md text-gray-500 dark:text-gray-400 font-medium">
-              No matches found
-            </p>
-            <p className="text-sm text-gray-400 mt-0.5">
-              Try a different keyword
-            </p>
-          </motion.div>
+              <p className="text-md text-gray-500 dark:text-gray-400 font-medium">
+                No matches found
+              </p>
+              <p className="text-sm text-gray-400 mt-0.5">
+                Try a different keyword
+              </p>
+            </motion.div>
           </div>
-
         )}
-      </div>
+      </motion.div>
       <div className="flex items-center justify-center p-4">
-        <div className="flex size-10 items-center justify-center text-[#757575]">
-          <span className="material-symbols-outlined text-4xl">chevron_left</span>
-        </div>
-        <div className="text-sm font-bold flex size-10 items-center justify-center text-white rounded-full bg-[#4a6b53] cursor-pointer">1</div>
-        <div className="text-sm font-bold flex size-10 items-center justify-center text-white rounded-full bg-[#4a6b53] cursor-pointer">2</div>
-        <div className="text-sm font-bold flex size-10 items-center justify-center text-white rounded-full bg-[#4a6b53] cursor-pointer">3</div>
-           <div className="flex size-10 items-center justify-center text-[#757575]">
-          <span className="material-symbols-outlined text-4xl">chevron_right</span>
-        </div>
+        {/* PAGINATION */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-6">
+            {/* Prev */}
+            <button
+              onClick={() => changePage(currentPage - 1)}
+              className="size-10 flex items-center justify-center text-gray-500 hover:text-black disabled:opacity-30"
+              disabled={currentPage === 1}
+            >
+              <span className="material-symbols-outlined text-3xl">
+                chevron_left
+              </span>
+            </button>
+
+            {/* Page numbers */}
+            {[...Array(totalPages)].map((_, index) => {
+              const page = index + 1;
+              const active = page === currentPage;
+
+              return (
+                <button
+                  key={page}
+                  onClick={() => changePage(page)}
+                  className={`size-10 flex items-center justify-center rounded-full text-sm font-bold transition-all
+            ${
+              active
+                ? "bg-[#4a6b53] text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+                >
+                  {page}
+                </button>
+              );
+            })}
+
+            {/* Next */}
+            <button
+              onClick={() => changePage(currentPage + 1)}
+              className="size-10 flex items-center justify-center text-gray-500 hover:text-black disabled:opacity-30"
+              disabled={currentPage === totalPages}
+            >
+              <span className="material-symbols-outlined text-3xl">
+                chevron_right
+              </span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
