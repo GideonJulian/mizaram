@@ -33,6 +33,17 @@ const route = createBrowserRouter([
         index: true,
         element: <Dashboard />,
       },
+      {
+        path: "add-product",
+        element: "add product",
+      },
+      {
+        path: "products",
+        element: "all products",
+      },
+      {
+        
+      },
     ],
   },
 ]);
