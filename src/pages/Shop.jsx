@@ -45,7 +45,6 @@ function Shop() {
       desc: "For soft & smooth skin",
       type: "oil",
     },
-    
   ];
 
   const productTypes = [
@@ -199,20 +198,20 @@ function Shop() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 gap-x-6 gap-y-10"
+        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"
       >
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((product, index) => (
-      <motion.div
-            key={product.id}
-            className="w-full max-w-[320px]" // Ensure card doesn’t overflow
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.6 }}
-          >
-            <ProductCard product={product} />
-          </motion.div>
+            <motion.div
+              key={product.id}
+              className="w-full max-w-[320px]" // Ensure card doesn’t overflow
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+            >
+              <ProductCard product={product} />
+            </motion.div>
           ))
         ) : (
           <div className="">
