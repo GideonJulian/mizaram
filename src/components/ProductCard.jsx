@@ -1,8 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 function ProductCard({ product }) {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    console.log('clicked')
+    navigate(`/product/${product.id}`);
+  };
   return (
-    <div className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden" >
+    <div
+      className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden"
+      onClick={handleNavigate}
+    >
       {/* Product Image */}
       <div
         className="w-full md:aspect-3/3 aspect-3/4 bg-cover bg-center transition-transform duration-500 hover:scale-105 rounded-t-xl"
@@ -31,8 +40,8 @@ function ProductCard({ product }) {
           transition={{
             duration: 0.8,
             delay: 0.3,
-            type: 'spring',
-            stiffness:100,
+            type: "spring",
+            stiffness: 100,
           }}
           whileHover={{
             scale: 1.03,

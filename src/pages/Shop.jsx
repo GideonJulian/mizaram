@@ -210,7 +210,7 @@ function Shop() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
             >
-              <ProductCard product={product} />
+              <ProductCard product={product}  />
             </motion.div>
           ))
         ) : (
