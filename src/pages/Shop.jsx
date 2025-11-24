@@ -177,16 +177,44 @@ function Shop() {
       </div>
 
       {/* PRODUCTS GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))
         ) : (
-          <p className="col-span-full text-center text-gray-500 text-lg">
-            No products found
-          </p>
+          <div className="">
+            <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2 }}
+            className="flex flex-col  items-center justify-center px-3 py-4 text-center"
+          >
+            <span className="material-symbols-outlined  text-gray-400 text-8xl mb-1">
+              search_off
+            </span>
+
+            <p className="text-md text-gray-500 dark:text-gray-400 font-medium">
+              No matches found
+            </p>
+            <p className="text-sm text-gray-400 mt-0.5">
+              Try a different keyword
+            </p>
+          </motion.div>
+          </div>
+
         )}
+      </div>
+      <div className="flex items-center justify-center p-4">
+        <div className="flex size-10 items-center justify-center text-[#757575]">
+          <span className="material-symbols-outlined text-4xl">chevron_left</span>
+        </div>
+        <div className="text-sm font-bold flex size-10 items-center justify-center text-white rounded-full bg-[#4a6b53] cursor-pointer">1</div>
+        <div className="text-sm font-bold flex size-10 items-center justify-center text-white rounded-full bg-[#4a6b53] cursor-pointer">2</div>
+        <div className="text-sm font-bold flex size-10 items-center justify-center text-white rounded-full bg-[#4a6b53] cursor-pointer">3</div>
+           <div className="flex size-10 items-center justify-center text-[#757575]">
+          <span className="material-symbols-outlined text-4xl">chevron_right</span>
+        </div>
       </div>
     </div>
   );
