@@ -4,12 +4,14 @@ import pro2 from "../assets/images/pro2.png";
 import pro3 from "../assets/images/pro3.png";
 import pro4 from "../assets/images/pro4.png";
 import ProductCard from "../components/ProductCard";
+import { motion } from "framer-motion";
+
 function Shop() {
   const [selectedType, setSelectedType] = useState("all");
   const [showTypeMenu, setShowTypeMenu] = useState(false);
   const [DropsearchTerm, setDropSearchTerm] = useState("");
   const [searchBarTerm, setSearchBarTerm] = useState("");
-  // Dummy Products (DO NOT MAP YET)
+
   const products = [
     {
       id: 1,
@@ -17,6 +19,7 @@ function Shop() {
       image: pro1,
       price: "$29.99",
       desc: "For dewy, plump skin",
+      type: "serum",
     },
     {
       id: 2,
@@ -24,13 +27,15 @@ function Shop() {
       image: pro2,
       price: "$29.99",
       desc: "Purifies without stripping",
+      type: "face wash",
     },
     {
       id: 3,
       name: "Vitamin C Eye Cream",
       image: pro3,
       price: "$29.99",
-      desc: "Reduces puffiness and dark circles",
+      desc: "Reduces puffiness",
+      type: "moisturizer",
     },
     {
       id: 4,
@@ -38,6 +43,7 @@ function Shop() {
       image: pro4,
       price: "$29.99",
       desc: "For soft & smooth skin",
+      type: "oil",
     },
   ];
 
@@ -47,32 +53,54 @@ function Shop() {
     "body wash",
     "face wash",
     "body spray",
-    "Serum",
-    "Moisturizer",
-    "Sunscreen",
+    "serum",
+    "moisturizer",
+    "sunscreen",
+    "oil",
   ];
+
+  // Dropdown filtering
   const filteredTypes = productTypes.filter((type) =>
-    type.toLowerCase().includes(
-      DropsearchTerm.toLowerCase())
+    type.toLowerCase().includes(DropsearchTerm.toLowerCase())
   );
-  const filterProductsBySearch = products.filter((product) => 
-    product.name.toLowerCase().includes(
-      searchBarTerm.toLowerCase()
-    )
-)
+
+  // Main filtering
+  const filteredProducts = products.filter((p) => {
+    const matchType = selectedType === "all" || p.type === selectedType;
+    const matchSearch = p.name
+      .toLowerCase()
+      .includes(searchBarTerm.toLowerCase());
+    return matchType && matchSearch;
+  });
 
   return (
     <div className="container mx-auto px-6 py-20 flex flex-col gap-8">
-      {/* Header */}
+      {/* Header + Search Bar */}
       <div className="flex flex-wrap justify-between gap-4 items-center">
         <div className="flex flex-col gap-2">
           <h1 className="text-text-light-primary dark:text-text-dark-primary text-4xl font-bold tracking-tighter">
             Explore Our Collection
           </h1>
-          <p className="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal">
-            Discover our nature-inspired skincare products, crafted with the
-            finest ingredients.
+          <p className="text-text-light-secondary dark:text-text-dark-secondary text-base">
+            Discover natural skincare crafted with the finest ingredients.
           </p>
+        </div>
+
+        {/* Search Bar — moved to the END */}
+        <div className="relative w-full max-w-xs">
+          <div className="flex items-center h-10 w-full rounded-full border border-border-light dark:border-border-dark bg-white dark:bg-surface-dark px-4 shadow-sm focus-within:ring-2 focus-within:ring-primary/40 transition-all">
+            <span className="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary text-[20px] mr-2">
+              search
+            </span>
+
+            <input
+              value={searchBarTerm}
+              onChange={(e) => setSearchBarTerm(e.target.value)}
+              type="text"
+              placeholder="Search Product..."
+              className="w-full bg-transparent text-sm text-[#000]  placeholder:text-[#333] focus:outline-none"
+            />
+          </div>
         </div>
       </div>
 
@@ -81,29 +109,26 @@ function Shop() {
         {/* Product Type Filter */}
         <button
           onClick={() => setShowTypeMenu(!showTypeMenu)}
-          className="flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark px-4 hover:border-[#4a6b53] transition-colors"
+          className="flex h-10 items-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border px-4 hover:border-[#4a6b53]"
         >
-          <p className="text-text-light-primary dark:text-text-dark-primary text-sm font-medium capitalize">
+          <p className="text-sm font-medium capitalize">
             {selectedType === "all" ? "Product Type" : selectedType}
           </p>
-          <span className="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary !text-xl">
-            expand_more
-          </span>
+          <span className="material-symbols-outlined text-xl">expand_more</span>
         </button>
 
         {/* Dropdown */}
         {showTypeMenu && (
-          <div className="absolute left-0 mt-12 w-56 bg-white dark:bg-surface-dark rounded-lg shadow-md border border-border-light dark:border-border-dark z-20 p-2">
-            {/* Search Bar */}
+          <div className="absolute left-0 mt-12 w-56 bg-white dark:bg-surface-dark rounded-lg shadow-md border p-2 z-20">
+            {/* Search inside dropdown */}
             <input
-              type="text"
-              placeholder="Search type..."
-              className="w-full mb-2 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-surface-dark text-sm focus:outline-none"
               value={DropsearchTerm}
               onChange={(e) => setDropSearchTerm(e.target.value)}
+              type="text"
+              placeholder="Search type..."
+              className="w-full mb-2 px-3 py-2 rounded-md border text-sm bg-white dark:bg-surface-dark"
             />
 
-            {/* Scrollable List */}
             <div className="max-h-48 overflow-y-auto">
               {filteredTypes.length > 0 ? (
                 filteredTypes.map((type) => (
@@ -114,55 +139,54 @@ function Shop() {
                       setShowTypeMenu(false);
                       setDropSearchTerm("");
                     }}
-                    className="w-full text-left px-4 py-2 text-sm hover:bg-[#80ec1333] capitalize rounded-md cursor-pointer"
+                    className="w-full text-left px-4 py-2 text-sm hover:bg-[#80ec1333] capitalize rounded-md"
                   >
                     {type}
                   </button>
                 ))
               ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400 px-3 py-2">
-                  No match found
-                </p>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex flex-col items-center justify-center px-3 py-4 text-center"
+                >
+                  <span className="material-symbols-outlined text-gray-400 text-4xl mb-1">
+                    search_off
+                  </span>
+
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                    No matches found
+                  </p>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    Try a different keyword
+                  </p>
+                </motion.div>
               )}
             </div>
           </div>
         )}
 
-        {/* Skin Concern Button (placeholder) */}
-        <button className="flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark px-4 hover:border-[#4a6b53] transition-colors">
-          <p className="text-text-light-primary dark:text-text-dark-primary text-sm font-medium">
-            Skin Concern
-          </p>
-          <span className="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary !text-xl">
-            expand_more
-          </span>
-        </button>
-
+        {/* Sort placeholder */}
         <div className="flex-grow"></div>
 
-        {/* Sort Button */}
-        <button className="flex h-10 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-border-light dark:border-border-dark px-4 hover:border-[#4a6b53] transition-colors">
-          <p className="text-text-light-primary dark:text-text-dark-primary text-sm font-medium">
-            Sort By: Best Selling
-          </p>
-          <span className="material-symbols-outlined text-text-light-secondary dark:text-text-dark-secondary !text-xl">
-            expand_more
-          </span>
+        <button className="flex h-10 items-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border px-4">
+          <p className="text-sm font-medium">Sort By: Best Selling</p>
+          <span className="material-symbols-outlined text-xl">expand_more</span>
         </button>
       </div>
 
+      {/* PRODUCTS GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
-     {
-        filterProductsBySearch.map((product)=> {
-          filterProductsBySearch.length > 0 ? (
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
-          ) : (
-            <p className="text-sm text-gray-500 dark:text-gray-400 px-3 py-2">
-              No products found
-            </p>
-          )
-        })
-     }
+          ))
+        ) : (
+          <p className="col-span-full text-center text-gray-500 text-lg">
+            No products found
+          </p>
+        )}
       </div>
     </div>
   );
