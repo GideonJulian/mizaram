@@ -20,7 +20,7 @@ const route = createBrowserRouter([
     ],
   },
 
-  // 🔒 ALL ADMIN ROUTES ARE NOW PROTECTED
+  
   {
     path: "admin",
     element: (
