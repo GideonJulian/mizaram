@@ -32,17 +32,17 @@ const AddProducts = () => {
             <div className="">
               <div className="flex flex-col">
                 <label htmlFor="" className="">
-                  <p className="text-sm font-medium leading-normal pb-2 text-[#2d3748] dark:text-text-dark">
+                  <p className="text-sm font-medium leading-normal pb-2  text-[#2d3748] dark:text-text-dark">
                     price
                   </p>
                 </label>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-[#718096]">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-2 text-[#718096]">
                     $
                   </span>
                   <input
                     placeholder="29.99"
-                    className="form-input w-full rounded-lg text-[#2d3748] bg-[#f9f9f9] border-[#e2e8f0] focus:ring-2 focus:ring-[#38664180] focus:border-[#386641] h-12 placeholder:text-subtext-light[#333] pl-8 pr-4 text-base font-normal"
+                    className="form-input w-full rounded-lg text-[#2d3748] bg-[#f9f9f9] border-[#e2e8f0] focus:ring-2 focus:ring-[#38664180] focus:border-[#386641] h-12 placeholder:text-subtext-light[#333] pl-12 pr-0 text-base font-normal"
                     type=""
                   />
                 </div>
@@ -59,6 +59,25 @@ const AddProducts = () => {
                   className="form-textarea w-full rounded-lg text-[#2d3748] bg-[#f9f9f9] border-[#e2e8f0] focus:ring-2 focus:ring-[#38664180] focus:border-[#386641] placeholder:text-[#333]  p-4 text-base font-normal"
                   placeholder="Describe the product..."
                 ></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#fff] rounded-xl shadow-soft border border-[#e2e8f0]">
+          <h2 className="text-[#2d3748] text-lg font-bold leading-tight px-6 pt-5 pb-4 border-b border-[#e2e8f0]">
+            Media
+          </h2>
+          <div className="p-6">
+            <div className="flex items-center justify-center w-full">
+              <label
+                htmlFor=""
+                className="flex flex-col items-center justify-center w-full h-64 border-2 border-[#e2e8f0] border-dashed rounded-lg cursor-pointer bg-[#f9f9f9] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              >
+              <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                <span className="material-symbols-outlined text-4xl text-[#718096] mb-4">cloud_upload</span>
+                
+              </div>
               </label>
             </div>
           </div>
