@@ -88,7 +88,7 @@ function Shop() {
     return matchType && matchSearch;
   });
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);

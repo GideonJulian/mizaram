@@ -65,7 +65,7 @@ function Navbar() {
               className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-xl p-6 sm:hidden"
             >
               <div className="flex flex-col gap-6 text-center">
-                <Link onClick={() => setOpen(false)} className="text-lg font-semibold text-gray-900 tracking-wide">
+                <Link onClick={() => setOpen(false)} className="text-lg font-semibold text-gray-900 tracking-wide" to={'/shop'}>
                   Shop
                 </Link>
                 <Link onClick={() => setOpen(false)} className="text-lg font-semibold text-gray-900 tracking-wide">

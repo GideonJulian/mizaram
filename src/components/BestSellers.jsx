@@ -5,6 +5,7 @@ import pro2 from "../assets/images/pro2.png";
 import pro3 from "../assets/images/pro3.png";
 import pro4 from "../assets/images/pro4.png";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 function BestSellers() {
   const products = [
@@ -74,7 +75,9 @@ function BestSellers() {
         whileTap={{ scale: 0.98 }}
         className="flex max-w-xs mx-auto mt-20 cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[#4a6a50] text-white text-base font-bold"
       >
-        Shop The Collection
+      <Link to={'/shop'} className="w-full h-full flex items-center justify-center">
+          Shop The Collection
+      </Link>
       </motion.button>
     </section>
   );
