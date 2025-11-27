@@ -44,6 +44,19 @@ const Footer = () => {
               Shipping & Returns
             </Links>
           </div>
+          <div className="flex flex-col gap-4">
+            <h3 className="font-bold text-[#323232]">Join our newsletter</h3>
+            <p className="text-[#757575]  text-sm">
+              Get 10% off your first order.
+            </p>
+            <div className="flex">
+              <input
+                type="text"
+                className="form-input w-full rounded-l-lg border border-[#e0e0e0] bg-[#f9f9f7] focus:ring-[#4a6b53] focus:border-[#4a6b53] text-sm h-10"
+              />
+              <button className="bg-[#4a6b53] text-white px-4 rounded-r-lg font-bold text-sm h-10">Subscribe</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
