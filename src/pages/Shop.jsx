@@ -44,6 +44,21 @@ function Shop() {
       price: "$29.99",
       desc: "For soft & smooth skin",
       type: "oil",
+    },  {
+      id: 5,
+      name: "Nourishing Oil",
+      image: pro4,
+      price: "$29.99",
+      desc: "For soft & smooth skin",
+      type: "oil",
+    },
+      {
+      id: 6,
+      name: "Gentle Cleanser",
+      image: pro2,
+      price: "$29.99",
+      desc: "Purifies without stripping",
+      type: "face wash",
     },
   ];
 
