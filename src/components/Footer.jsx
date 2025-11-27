@@ -32,6 +32,18 @@ const Footer = () => {
               Face care
             </Links>
           </div>
+          <div className="flex flex-col gap-3">
+            <h3 className="font-bold text-[#323232]">Support</h3>
+            <Links className="text-[#757575] text-sm hover:text-[#4a6b53] transition-colors">
+              Contact Us
+            </Links>
+            <Links className="text-[#757575] text-sm hover:text-[#4a6b53] transition-colors">
+              FAQ
+            </Links>
+            <Links className="text-[#757575] text-sm hover:text-[#4a6b53] transition-colors">
+              Shipping & Returns
+            </Links>
+          </div>
         </div>
       </div>
     </div>
