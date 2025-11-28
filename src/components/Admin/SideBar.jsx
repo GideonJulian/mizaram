@@ -78,7 +78,7 @@ const SideBar = ({ isOpen, closeSidebar }) => {
               Settings
             </NavLink>
 
-            <button  className="cursor-pointerc flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[#2d3748] hover:bg-[#3866411a]">
+            <button className="cursor-pointerc flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-[#2d3748] hover:bg-[#3866411a]">
               <span className="material-symbols-outlined">logout</span>
               Logout
             </button>
