@@ -9,30 +9,65 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Automatically redirect if already logged in
+
+  // CHECK IF USER IS ADMIN
+
+  const checkAdmin = async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    const user = userData?.user;
+
+    if (!user) return false;
+
+    const { data, error } = await supabase
+      .from("admins")
+      .select("id")
+      .eq("id", user.id)
+      .single();
+
+    return !!data && !error;
+  };
+
+
+  // AUTO-REDIRECT IF ALREADY LOGGED IN
+
   useEffect(() => {
-    const session = superbase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        navigate("/admin"); // already logged in
+    (async () => {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const session = sessionData?.session;
+
+      if (!session) return;
+
+      const isAdmin = await checkAdmin();
+      if (isAdmin) {
+        navigate("/admin");
       }
-    });
+    })();
   }, [navigate]);
+
+
+  // HANDLE LOGIN
 
   const handleAuth = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // SIGN IN
-      const { data, error } = await superbase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw error;
 
-      // Supabase automatically persists session in browser storage
-      // You now have an authenticated session
+      // Verify admin
+      const isAdmin = await checkAdmin();
+
+      if (!isAdmin) {
+        alert("You do not have admin access.");
+        setLoading(false);
+        return;
+      }
+
       navigate("/admin");
     } catch (err) {
       alert(err.message);
@@ -40,6 +75,7 @@ const Auth = () => {
 
     setLoading(false);
   };
+
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-100">
