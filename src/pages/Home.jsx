@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useEffectEvent, useState } from "react";
 import { motion } from "framer-motion";
 import BestSellers from "../components/BestSellers";
 import { Link, useNavigate } from "react-router-dom";
@@ -44,7 +44,7 @@ function Home() {
     setProductsData(data || []);
   };
   
-  useEffect(() => {
+  useEffectEvent(() => {
     fetchProducts();
   }, []);
   return (
