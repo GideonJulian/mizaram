@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import BestSellers from "../components/BestSellers";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import pic2 from "../assets/images/pic2.png";
 import pic3 from "../assets/images/pic3.png";
 function Home() {
   const navigate = useNavigate()
+    const [productsData, setProductsData] = useState([]);
 
   const data = [
     {
@@ -30,6 +31,22 @@ function Home() {
     { title: "Anti-Aging", image: pic2 },
     { title: "Brightening", image: pic3 },
   ]
+    const fetchProducts = async () => {
+    const { data, error } = await supabase  
+      .from("products")
+      .select("*");
+  
+    if (error) {
+      console.log("Error fetching products:", error);
+    } else {
+      console.log("Products fetched successfully:", data);
+    }
+    setProductsData(data || []);
+  };
+  
+  useEffect(() => {
+    fetchProducts();
+  }, []);
   return (
     <div className="">
       <section className="relative">
@@ -112,7 +129,7 @@ function Home() {
       md:flex-wrap
     "
   >
-    {data.map((item, index) => (
+    {productsData.map((item, index) => (
       <div
         key={index}
         className="
