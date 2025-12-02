@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import pro1 from "../assets/images/pro1.png";
 import pro2 from "../assets/images/pro2.png";
 import pro3 from "../assets/images/pro3.png";
 import pro4 from "../assets/images/pro4.png";
 import ProductCard from "../components/ProductCard";
 import { motion } from "framer-motion";
+import { supabase } from "../../superbase/client";
 
 function Shop() {
   const [selectedType, setSelectedType] = useState("all");
   const [showTypeMenu, setShowTypeMenu] = useState(false);
   const [DropsearchTerm, setDropSearchTerm] = useState("");
   const [searchBarTerm, setSearchBarTerm] = useState("");
+  const [productsData, setProductsData] = useState([]);
 
   const products = [
     {
@@ -44,7 +46,8 @@ function Shop() {
       price: "$29.99",
       desc: "For soft & smooth skin",
       type: "oil",
-    },  {
+    },
+    {
       id: 5,
       name: "Nourishing Oil",
       image: pro4,
@@ -52,7 +55,7 @@ function Shop() {
       desc: "For soft & smooth skin",
       type: "oil",
     },
-      {
+    {
       id: 6,
       name: "Gentle Cleanser",
       image: pro2,
@@ -72,7 +75,25 @@ function Shop() {
     "moisturizer",
     "sunscreen",
     "oil",
+    'Haircare'
   ];
+  const fetchProducts = async () => {
+  const { data, error } = await supabase  
+    .from("products")
+    .select("*");
+
+  if (error) {
+    console.log("Error fetching products:", error);
+  } else {
+    console.log("Products fetched successfully:", data);
+  }
+  setProductsData(data || []);
+};
+
+useEffect(() => {
+  fetchProducts();
+}, []);
+
 
   // Dropdown filtering
   const filteredTypes = productTypes.filter((type) =>
@@ -80,8 +101,8 @@ function Shop() {
   );
 
   // Main filtering
-  const filteredProducts = products.filter((p) => {
-    const matchType = selectedType === "all" || p.type === selectedType;
+  const filteredProducts = productsData.filter((p) => {
+    const matchType = selectedType === "all" || p.category === selectedType;
     const matchSearch = p.name
       .toLowerCase()
       .includes(searchBarTerm.toLowerCase());
@@ -225,7 +246,7 @@ function Shop() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.6 }}
             >
-              <ProductCard product={product}  />
+              <ProductCard product={product} />
             </motion.div>
           ))
         ) : (

@@ -15,7 +15,7 @@ function ProductCard({ product }) {
       {/* Product Image */}
       <div
         className="w-full md:aspect-3/3 aspect-3/4 bg-cover bg-center transition-transform duration-500 hover:scale-105 rounded-t-xl"
-        style={{ backgroundImage: `url(${product.image})` }}
+        style={{ backgroundImage: `url(${product.front_image})` }}
       ></div>
 
       {/* Product Info */}
@@ -30,7 +30,7 @@ function ProductCard({ product }) {
             </p>
           </div>
           <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
-            {product.desc}
+            {product.description}
           </p>
         </div>
 
