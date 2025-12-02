@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { superbase } from "../../superbase/client";
+import { supabase } from "../../superbase/client";
 import { useNavigate } from "react-router-dom";
 
 const Auth = () => {

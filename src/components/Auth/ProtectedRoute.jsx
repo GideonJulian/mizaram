@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { superbase } from "../../../superbase/client";
+import { supabase } from "../../../superbase/client";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    superbase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setIsLoggedIn(!!session);
       setLoading(false);
     });
