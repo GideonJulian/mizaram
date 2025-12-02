@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../../superbase/client";
+import Loading from "../components/Loader";
 
 function SingleProducts() {
   const { id } = useParams();
@@ -33,13 +34,7 @@ function SingleProducts() {
     fetchProduct();
   }, [id]);
 
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-20 text-center text-2xl font-semibold">
-        Loading product...
-      </div>
-    );
-  }
+  if (loading) return <Loading />;
 
   if (errorMsg) {
     return (
