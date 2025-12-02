@@ -107,7 +107,18 @@ const AddProducts = () => {
 
     setLoading(false);
   };
-
+ const productTypes = [
+    "all",
+    "lotion",
+    "body wash",
+    "face wash",
+    "body spray",
+    "serum",
+    "moisturizer",
+    "sunscreen",
+    "oil",
+    'Haircare'
+  ];
   return (
     <div className="">
       <div className="mb-8">
@@ -165,10 +176,13 @@ const AddProducts = () => {
                   onChange={(e) => setCategory(e.target.value)}
                   className="form-select w-full h-12 rounded-lg bg-[#f9f9f9] border-[#e2e8f0] px-4"
                 >
-                  <option>Skincare</option>
-                  <option>Haircare</option>
-                  <option>Perfume</option>
-                  <option>Body Lotion</option>
+                 {
+                    productTypes.map((type) => (
+                      <option key={type} value={type}>
+                        {type.charAt(0).toUpperCase() + type.slice(1)}
+                      </option>
+                    ))
+                 }
                 </select>
               </label>
             </div>

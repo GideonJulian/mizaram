@@ -15,30 +15,7 @@ function Shop() {
   const [productsData, setProductsData] = useState([]);
 
   const products = [
-    {
-      id: 1,
-      name: "Hydrating Serum",
-      image: pro1,
-      price: "$29.99",
-      desc: "For dewy, plump skin",
-      type: "serum",
-    },
-    {
-      id: 2,
-      name: "Gentle Cleanser",
-      image: pro2,
-      price: "$29.99",
-      desc: "Purifies without stripping",
-      type: "face wash",
-    },
-    {
-      id: 3,
-      name: "Vitamin C Eye Cream",
-      image: pro3,
-      price: "$29.99",
-      desc: "Reduces puffiness",
-      type: "moisturizer",
-    },
+ 
     {
       id: 4,
       name: "Nourishing Oil",
