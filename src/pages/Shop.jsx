@@ -6,6 +6,7 @@ import pro4 from "../assets/images/pro4.png";
 import ProductCard from "../components/ProductCard";
 import { motion } from "framer-motion";
 import { supabase } from "../../superbase/client";
+import Loading from "../components/Loader";
 
 function Shop() {
   const [selectedType, setSelectedType] = useState("all");
@@ -13,7 +14,8 @@ function Shop() {
   const [DropsearchTerm, setDropSearchTerm] = useState("");
   const [searchBarTerm, setSearchBarTerm] = useState("");
   const [productsData, setProductsData] = useState([]);
-
+  const [loading, setLoading] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1);
   const products = [
  
     {
@@ -65,13 +67,14 @@ function Shop() {
     console.log("Products fetched successfully:", data);
   }
   setProductsData(data || []);
+   setLoading(false);
 };
 
 useEffect(() => {
   fetchProducts();
 }, []);
 
-
+  if (loading) return <Loading />;
   // Dropdown filtering
   const filteredTypes = productTypes.filter((type) =>
     type.toLowerCase().includes(DropsearchTerm.toLowerCase())
@@ -87,7 +90,7 @@ useEffect(() => {
   });
 
   const itemsPerPage = 4;
-  const [currentPage, setCurrentPage] = useState(1);
+
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
