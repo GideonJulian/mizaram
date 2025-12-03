@@ -119,7 +119,7 @@ const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
             </div>
 
             <p className="text-3xl font-semibold text-[#556b2f]">
-              ₦{totalPrice}
+              {totalPrice}
             </p>
 
             {/* Extra Info */}
