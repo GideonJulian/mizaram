@@ -89,7 +89,7 @@ useEffect(() => {
     return matchType && matchSearch;
   });
 
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
 
 
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
@@ -214,7 +214,7 @@ useEffect(() => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2"
+        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
       >
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((product, index) => (
