@@ -60,12 +60,12 @@ function SingleProducts() {
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-const unitPrice = product.price; // already a number
-const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
-  style: "currency",
-  currency: "NGN",
-  minimumFractionDigits: 2,
-});
+  const unitPrice = product.price; // already a number
+  const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
+    style: "currency",
+    currency: "NGN",
+    minimumFractionDigits: 2,
+  });
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-28">
@@ -94,7 +94,7 @@ const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
                   key={idx}
                   whileHover={{ scale: 1.05 }}
                   onClick={() => setMainImage(img)}
-                  className={`w-20 h-20 rounded-lg border-2 cursor-pointer overflow-hidden ${
+                  className={`w-30 h-30 rounded-lg border-2 cursor-pointer overflow-hidden ${
                     mainImage === img ? "border-[#556b2f]" : "border-gray-300"
                   }`}
                 >
@@ -123,25 +123,54 @@ const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
             </p>
 
             {/* Extra Info */}
-            <div className="flex flex-col gap-2 text-sm text-gray-700 dark:text-gray-300">
+            {/* Extra Info */}
+            <div className="flex flex-col gap-4 p-4  dark:border-gray-700">
               {product.category && (
-                <p>
-                  <strong>Category:</strong> {product.category}
-                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500 dark:text-gray-400 font-medium">
+                    Category:
+                  </span>
+                  <span className="text-gray-800 dark:text-gray-200 font-semibold">
+                    {product.category}
+                  </span>
+                </div>
               )}
-              <p>
-                <strong>SKU:</strong> {product.id}
-              </p>
-              {product.stock && (
-                <p>
-                  <strong>Availability:</strong>{" "}
-                  {product.stock > 0 ? "In Stock" : "Out of Stock"}
-                </p>
+
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 dark:text-gray-400 font-medium">
+                  SKU:
+                </span>
+                <span className="text-gray-800 dark:text-gray-200 font-semibold">
+                  {product.id}
+                </span>
+              </div>
+
+              {product.stock !== undefined && (
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-500 dark:text-gray-400 font-medium">
+                    Availability:
+                  </span>
+                  <span
+                    className={`font-semibold ${
+                      product.stock > 0
+                        ? "text-green-600 dark:text-green-400"
+                        : "text-red-600 dark:text-red-400"
+                    }`}
+                  >
+                    {product.stock > 0 ? "In Stock" : "Out of Stock"}
+                  </span>
+                </div>
               )}
+
               {product.benefits && (
-                <p>
-                  <strong>Benefits:</strong> {product.benefits}
-                </p>
+                <div className="flex flex-col">
+                  <span className="text-gray-500 dark:text-gray-400 font-medium">
+                    Benefits:
+                  </span>
+                  <span className="text-gray-800 dark:text-gray-200 mt-1">
+                    {product.benefits}
+                  </span>
+                </div>
               )}
             </div>
 
@@ -180,6 +209,7 @@ const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
             )}
           </div>
         </section>
+        <section></section>
       </div>
     </div>
   );
