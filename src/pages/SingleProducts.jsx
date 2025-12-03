@@ -193,12 +193,13 @@ function SingleProducts() {
                 </button>
               </div>
 
-              <button className="flex-1 flex items-center justify-center gap-2 h-12 px-6 bg-[#556b2f] text-white font-bold rounded-full shadow-md hover:shadow-lg hover:brightness-105 transition-all">
-                Add to Cart
-                <span className="material-symbols-outlined text-primary text-2xl">
-                  add_shopping_cart
-                </span>
-              </button>
+          <button className="w-full flex items-center justify-center gap-2 h-14 sm:h-12 px-6 bg-[#556b2f] text-white font-bold rounded-full shadow-md hover:shadow-lg hover:brightness-105 transition-all">
+  Add to Cart
+  <span className="material-symbols-outlined text-primary text-2xl">
+    add_shopping_cart
+  </span>
+</button>
+
             </div>
 
             {/* Additional Description / Details */}
