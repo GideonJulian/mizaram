@@ -1,43 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import pro1 from "../assets/images/pro1.png";
-import pro2 from "../assets/images/pro2.png";
-import pro3 from "../assets/images/pro3.png";
-import pro4 from "../assets/images/pro4.png";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { supabase } from "../../superbase/client";
+import Loading from "./Loader";
 
 function BestSellers() {
-  const products = [
-    {
-      id: 1,
-      name: "Hydrating Serum",
-      image: pro1,
-      price: "$29.99",
-      desc: "For dewy, plump skin",
-    },
-    {
-      id: 2,
-      name: "Gentle Cleanser",
-      image: pro2,
-      price: "$29.99",
-      desc: "Purifies without stripping",
-    },
-    {
-      id: 3,
-      name: "Vitamin C Eye Cream",
-      image: pro3,
-      price: "$29.99",
-      desc: "Reduces puffiness and dark circles",
-    },
-    {
-      id: 4,
-      name: "Nourishing Oil",
-      image: pro4,
-      price: "$29.99",
-      desc: "For soft & smooth skin",
-    },
-  ];
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchProducts = async () => {
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .limit(4); // Optional: fetch only 4 best sellers
+
+    if (error) {
+      console.log("Error fetching products:", error);
+    } else {
+      console.log("Products fetched successfully:", data);
+      setProductsData(data || []);
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  if (loading) return <Loading />;
 
   return (
     <section className="w-full mx-auto py-12 px-4 sm:px-6 lg:px-8">
@@ -46,10 +38,10 @@ function BestSellers() {
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-items-center">
-        {products.map((product, index) => (
+        {productsData.map((product, index) => (
           <motion.div
             key={product.id}
-            className="w-full max-w-[320px]" // Ensure card doesn’t overflow
+            className="w-full max-w-[320px]"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -59,6 +51,7 @@ function BestSellers() {
           </motion.div>
         ))}
       </div>
+
       <motion.button
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -75,9 +68,12 @@ function BestSellers() {
         whileTap={{ scale: 0.98 }}
         className="flex max-w-xs mx-auto mt-20 cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[#4a6a50] text-white text-base font-bold"
       >
-      <Link to={'/shop'} className="w-full h-full flex items-center justify-center">
+        <Link
+          to={"/shop"}
+          className="w-full h-full flex items-center justify-center"
+        >
           Shop The Collection
-      </Link>
+        </Link>
       </motion.button>
     </section>
   );

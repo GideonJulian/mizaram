@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { supabase } from "../../superbase/client";
 import Loading from "../components/Loader";
+import { motion, AnimatePresence } from "framer-motion";
 
 function SingleProducts() {
   const { id } = useParams();
@@ -9,11 +10,12 @@ function SingleProducts() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const [mainImage, setMainImage] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   // Fetch a single product
   const fetchProduct = async () => {
     setLoading(true);
-
     const { data, error } = await supabase
       .from("products")
       .select("*")
@@ -25,8 +27,10 @@ function SingleProducts() {
       setErrorMsg("Failed to load product");
     } else {
       setProduct(data);
+      setMainImage(
+        data.front_image || "https://placehold.co/600x600?text=No+Image"
+      );
     }
-
     setLoading(false);
   };
 
@@ -46,22 +50,61 @@ function SingleProducts() {
 
   if (!product) return null;
 
-  // If you saved images in storage, construct their URL here:
-  const productImage = product.front_image
-    ? product.front_image
-    : "https://placehold.co/600x600?text=No+Image";
+  const images = [
+    product.front_image,
+    product.back_image,
+    product.side_image,
+  ].filter(Boolean);
+
+  // Handlers for quantity increment/decrement
+  const incrementQuantity = () => setQuantity((prev) => prev + 1);
+  const decrementQuantity = () =>
+    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+const unitPrice = product.price; // already a number
+const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
+  style: "currency",
+  currency: "NGN",
+  minimumFractionDigits: 2,
+});
 
   return (
     <div className="container mx-auto px-4 py-8 md:py-28">
       <div className="layout-content-container flex flex-col max-w-6xl mx-auto flex-1">
         <section className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
-          
           {/* LEFT — PRODUCT IMAGE */}
           <div className="flex flex-col gap-4">
-            <div
-              className="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white rounded-xl min-h-96 shadow-sm"
-              style={{ backgroundImage: `url(${productImage})` }}
-            ></div>
+            <div className="w-full min-h-[400px] bg-white rounded-xl shadow-sm overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={mainImage}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="w-full h-full bg-center bg-cover rounded-xl"
+                  style={{ backgroundImage: `url(${mainImage})` }}
+                />
+              </AnimatePresence>
+            </div>
+
+            {/* Thumbnails */}
+            <div className="flex gap-2 mt-3 justify-start">
+              {images.map((img, idx) => (
+                <motion.div
+                  key={idx}
+                  whileHover={{ scale: 1.05 }}
+                  onClick={() => setMainImage(img)}
+                  className={`w-20 h-20 rounded-lg border-2 cursor-pointer overflow-hidden ${
+                    mainImage === img ? "border-[#556b2f]" : "border-gray-300"
+                  }`}
+                >
+                  <div
+                    className="w-full h-full bg-center bg-cover"
+                    style={{ backgroundImage: `url(${img})` }}
+                  />
+                </motion.div>
+              ))}
+            </div>
           </div>
 
           {/* RIGHT — PRODUCT DETAILS */}
@@ -70,24 +113,52 @@ function SingleProducts() {
               <p className="text-text-light dark:text-text-dark text-4xl md:text-5xl font-serif-display font-bold leading-tight">
                 {product.name}
               </p>
-
               <p className="text-text-light/70 dark:text-text-dark/70 text-lg font-normal leading-normal">
                 {product.description || "No description provided"}
               </p>
             </div>
 
             <p className="text-3xl font-semibold text-[#556b2f]">
-              ₦{product.price}
+              ₦{totalPrice}
             </p>
 
+            {/* Extra Info */}
+            <div className="flex flex-col gap-2 text-sm text-gray-700 dark:text-gray-300">
+              {product.category && (
+                <p>
+                  <strong>Category:</strong> {product.category}
+                </p>
+              )}
+              <p>
+                <strong>SKU:</strong> {product.id}
+              </p>
+              {product.stock && (
+                <p>
+                  <strong>Availability:</strong>{" "}
+                  {product.stock > 0 ? "In Stock" : "Out of Stock"}
+                </p>
+              )}
+              {product.benefits && (
+                <p>
+                  <strong>Benefits:</strong> {product.benefits}
+                </p>
+              )}
+            </div>
+
             {/* Quantity + Add to Cart */}
-            <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+            <div className="flex flex-col sm:flex-row gap-4 items-stretch mt-4">
               <div className="flex items-center justify-between border border-neutral-subtle dark:border-text-light/20 rounded-full p-1">
-                <button className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-primary/10 transition-colors">
+                <button
+                  onClick={decrementQuantity}
+                  className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-primary/10 transition-colors"
+                >
                   <span className="material-symbols-outlined">remove</span>
                 </button>
-                <span className="px-4 text-lg font-medium">1</span>
-                <button className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-primary/10 transition-colors">
+                <span className="px-4 text-lg font-medium">{quantity}</span>
+                <button
+                  onClick={incrementQuantity}
+                  className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-primary/10 transition-colors"
+                >
                   <span className="material-symbols-outlined">add</span>
                 </button>
               </div>
@@ -99,8 +170,15 @@ function SingleProducts() {
                 </span>
               </button>
             </div>
-          </div>
 
+            {/* Additional Description / Details */}
+            {product.long_description && (
+              <div className="mt-6 text-gray-700 dark:text-gray-300">
+                <h3 className="font-semibold mb-2">Product Details:</h3>
+                <p className="text-sm">{product.long_description}</p>
+              </div>
+            )}
+          </div>
         </section>
       </div>
     </div>
