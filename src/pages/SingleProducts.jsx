@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { supabase } from "../../superbase/client";
 import Loading from "../components/Loader";
 import { motion, AnimatePresence } from "framer-motion";
+import YouMayLike from "../components/YouMayLike";
 
 function SingleProducts() {
   const { id } = useParams();
@@ -80,7 +81,7 @@ function SingleProducts() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.4 }}
                   className="w-full h-full bg-center bg-cover rounded-xl"
                   style={{ backgroundImage: `url(${mainImage})` }}
                 />
@@ -209,7 +210,9 @@ function SingleProducts() {
             )}
           </div>
         </section>
-        <section></section>
+        <section>
+          <YouMayLike />
+        </section>
       </div>
     </div>
   );
