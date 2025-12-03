@@ -30,7 +30,7 @@ function ProductCard({ product }) {
             </p>
           </div>
           <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
-            {product.description}
+            {/* {product.description} */}
           </p>
         </div>
 
