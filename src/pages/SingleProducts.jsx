@@ -14,9 +14,11 @@ function SingleProducts() {
   const [mainImage, setMainImage] = useState("");
   const [quantity, setQuantity] = useState(1);
 
+
   // Fetch a single product
   const fetchProduct = async () => {
     setLoading(true);
+
     const { data, error } = await supabase
       .from("products")
       .select("*")
@@ -24,23 +26,37 @@ function SingleProducts() {
       .single();
 
     if (error) {
-      console.log("Error fetching product:", error);
+      console.error("Error fetching product:", error);
       setErrorMsg("Failed to load product");
-    } else {
-      setProduct(data);
-      setMainImage(
-        data.front_image || "https://placehold.co/600x600?text=No+Image"
-      );
+      setLoading(false);
+      return;
     }
+
+    // Set main product
+    setProduct(data);
+
+
+    // Ensure fallback image
+    setMainImage(
+      data.front_image || "https://placehold.co/600x600?text=No+Image"
+    );
+
+
+ 
     setLoading(false);
   };
 
+
+
   useEffect(() => {
     fetchProduct();
+    window.scrollTo(0, 0); // Smooth UX when switching products
   }, [id]);
 
+  // Loading state
   if (loading) return <Loading />;
 
+  // Error state
   if (errorMsg) {
     return (
       <div className="container mx-auto px-4 py-20 text-center text-red-500 text-xl">
@@ -51,17 +67,20 @@ function SingleProducts() {
 
   if (!product) return null;
 
+  // Collect non-empty images
   const images = [
     product.front_image,
     product.back_image,
     product.side_image,
   ].filter(Boolean);
 
-  // Handlers for quantity increment/decrement
+  // Quantity Functions
   const incrementQuantity = () => setQuantity((prev) => prev + 1);
   const decrementQuantity = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-  const unitPrice = product.price; // already a number
+
+  // Price calculations
+  const unitPrice = Number(product.price); // ensure numeric
   const totalPrice = (unitPrice * quantity).toLocaleString("en-NG", {
     style: "currency",
     currency: "NGN",
@@ -193,13 +212,12 @@ function SingleProducts() {
                 </button>
               </div>
 
-          <button className="w-full flex items-center justify-center gap-2 h-14 sm:h-12 px-6 bg-[#556b2f] text-white font-bold rounded-full shadow-md hover:shadow-lg hover:brightness-105 transition-all">
-  Add to Cart
-  <span className="material-symbols-outlined text-primary text-2xl">
-    add_shopping_cart
-  </span>
-</button>
-
+              <button className="w-full flex items-center justify-center gap-2 h-14 sm:h-12 px-6 bg-[#556b2f] text-white font-bold rounded-full shadow-md hover:shadow-lg hover:brightness-105 transition-all">
+                Add to Cart
+                <span className="material-symbols-outlined text-primary text-2xl">
+                  add_shopping_cart
+                </span>
+              </button>
             </div>
 
             {/* Additional Description / Details */}
@@ -212,7 +230,7 @@ function SingleProducts() {
           </div>
         </section>
         <section>
-          <YouMayLike />
+          <YouMayLike  />
         </section>
       </div>
     </div>
