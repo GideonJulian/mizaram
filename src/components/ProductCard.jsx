@@ -74,23 +74,24 @@ function ProductCard({ product }) {
       </div>
 
       {/* ✅ Success Toast UI */}
-   <AnimatePresence>
-  {showSuccess && (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      exit={{ opacity: 0, y: 20, scale: 0.9 }}
-      transition={{ type: "spring", stiffness: 120, damping: 12 }}
-      className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-[#4b6f44] text-white rounded-full shadow-lg max-w-xs w-[90%] sm:w-auto text-center"
-    >
-      <span className="material-symbols-outlined text-base sm:text-lg">
-        check_circle
-      </span>
-      <p className="text-xs sm:text-sm font-medium truncate">Added to cart</p>
-    </motion.div>
-  )}
-</AnimatePresence>
-
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 120, damping: 12 }}
+            className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 bg-[#4b6f44] text-white rounded-full shadow-lg max-w-xs w-[90%] sm:w-auto text-center"
+          >
+            <span className="material-symbols-outlined text-base sm:text-lg">
+              check_circle
+            </span>
+            <p className="text-xs sm:text-sm font-medium truncate">
+              Added to cart
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
