@@ -8,6 +8,8 @@ import Dashboard from "./pages/Admin/Dashboard";
 import AddProducts from "./pages/Admin/AddProducts";
 import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import Auth from "./pages/Auth";
+import Cart from "./pages/Cart";
+import { CartProvider } from "./context/CartContext";
 
 const route = createBrowserRouter([
   {
@@ -20,7 +22,6 @@ const route = createBrowserRouter([
     ],
   },
 
-  
   {
     path: "admin",
     element: (
@@ -40,10 +41,18 @@ const route = createBrowserRouter([
     path: "/auth",
     element: <Auth />,
   },
+  {
+    path: "/cart",
+    element: <Cart />,
+  },
 ]);
 
 function App() {
-  return <RouterProvider router={route} />;
+  return (
+    <CartProvider>
+      <RouterProvider router={route} />
+    </CartProvider>
+  );
 }
 
 export default App;
