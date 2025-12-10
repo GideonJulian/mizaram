@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useCart } from "../context/CartContext";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
+  const { cart } = useCart();
   const navigate = useNavigate();
   return (
     <div className="w-full overflow-x-hidden relative">
@@ -36,11 +38,17 @@ function Navbar() {
 
           {/* Right Icons */}
           <div className="flex items-center justify-end gap-2 sm:gap-4">
-            <button className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-[#0000000d]">
-              <Link to={'/cart'}>
+            <button className="relative flex h-10 w-10 items-center justify-center rounded-full hover:bg-[#0000000d]">
+              <Link to={"/cart"}>
                 <span className="material-symbols-outlined text-2xl">
                   shopping_bag
                 </span>
+
+                {cart.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-[#4b6f44] text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                    {cart.length}
+                  </span>
+                )}
               </Link>
             </button>
 
