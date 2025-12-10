@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const handleNavigate = () => {
