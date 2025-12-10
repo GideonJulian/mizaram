@@ -1,13 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
+import { useCart } from "../context/CartContext";
 function ProductCard({ product }) {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    console.log('clicked')
+    console.log("clicked");
     navigate(`/product/${product.id}`);
   };
+  const { addToCart } = useCart();
+
   return (
     <div
       className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden"
@@ -36,6 +38,10 @@ function ProductCard({ product }) {
         </div>
 
         <motion.button
+          onClick={(e) => {
+            e.stopPropagation();
+            addToCart(product);
+          }}
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
