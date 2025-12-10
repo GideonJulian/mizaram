@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   return (
     <div className="w-full overflow-x-hidden relative">
       {/* Navbar */}
@@ -19,16 +19,29 @@ function Navbar() {
 
             {/* Desktop Menu */}
             <nav className="hidden md:flex items-center gap-8">
-              <Link className="text-sm font-medium hover:text-primary" to={'/shop'}>Shop</Link>
-              <Link className="text-sm font-medium hover:text-primary">Our Story</Link>
-              <Link className="text-sm font-medium hover:text-primary">Contact</Link>
+              <Link
+                className="text-sm font-medium hover:text-primary"
+                to={"/shop"}
+              >
+                Shop
+              </Link>
+              <Link className="text-sm font-medium hover:text-primary">
+                Our Story
+              </Link>
+              <Link className="text-sm font-medium hover:text-primary">
+                Contact
+              </Link>
             </nav>
           </div>
 
           {/* Right Icons */}
           <div className="flex items-center justify-end gap-2 sm:gap-4">
             <button className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-[#0000000d]">
-              <span className="material-symbols-outlined text-2xl">shopping_bag</span>
+              <Link to={'/cart'}>
+                <span className="material-symbols-outlined text-2xl">
+                  shopping_bag
+                </span>
+              </Link>
             </button>
 
             {/* Mobile Menu Icon */}
@@ -65,13 +78,23 @@ function Navbar() {
               className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-3xl shadow-xl p-6 sm:hidden"
             >
               <div className="flex flex-col gap-6 text-center">
-                <Link onClick={() => setOpen(false)} className="text-lg font-semibold text-gray-900 tracking-wide" to={'/shop'}>
+                <Link
+                  onClick={() => setOpen(false)}
+                  className="text-lg font-semibold text-gray-900 tracking-wide"
+                  to={"/shop"}
+                >
                   Shop
                 </Link>
-                <Link onClick={() => setOpen(false)} className="text-lg font-semibold text-gray-900 tracking-wide">
+                <Link
+                  onClick={() => setOpen(false)}
+                  className="text-lg font-semibold text-gray-900 tracking-wide"
+                >
                   Our Story
                 </Link>
-                <Link onClick={() => setOpen(false)} className="text-lg font-semibold text-gray-900 tracking-wide">
+                <Link
+                  onClick={() => setOpen(false)}
+                  className="text-lg font-semibold text-gray-900 tracking-wide"
+                >
                   Contact
                 </Link>
               </div>

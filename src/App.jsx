@@ -19,6 +19,10 @@ const route = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "shop", element: <Shop /> },
       { path: "product/:id", element: <SingleProducts /> },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
     ],
   },
 
@@ -40,10 +44,6 @@ const route = createBrowserRouter([
   {
     path: "/auth",
     element: <Auth />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
   },
 ]);
 
