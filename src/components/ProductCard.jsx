@@ -1,18 +1,35 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+
 function ProductCard({ product }) {
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const handleNavigate = () => {
-    console.log("clicked");
     navigate(`/product/${product.id}`);
   };
-  const { addToCart } = useCart();
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+
+    addToCart(product);
+
+    // Trigger success UI
+    setShowSuccess(true);
+
+    // Auto hide after 1.8s
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 1800);
+  };
 
   return (
     <div
-      className="flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden"
+      className="relative flex flex-col w-full rounded-xl bg-white shadow-lg overflow-hidden cursor-pointer"
       onClick={handleNavigate}
     >
       {/* Product Image */}
@@ -25,23 +42,18 @@ function ProductCard({ product }) {
       <div className="flex flex-col justify-between p-4 gap-2">
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between">
-            <p className="text-[#141811] dark:text-background-light text-sm sm:text-base font-bold">
+            <p className="text-[#141811] text-sm sm:text-base font-bold">
               {product.name}
             </p>
-            <p className="text-[#141811] dark:text-background-light text-sm sm:text-base font-bold">
-              {product.price}
+            <p className="text-[#141811] text-sm sm:text-base font-bold">
+              ₦{product.price}
             </p>
           </div>
-          <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
-            {/* {product.description} */}
-          </p>
         </div>
 
+        {/* Add to Cart Button */}
         <motion.button
-          onClick={(e) => {
-            e.stopPropagation();
-            addToCart(product);
-          }}
+          onClick={handleAddToCart}
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -60,6 +72,22 @@ function ProductCard({ product }) {
           Add to Cart
         </motion.button>
       </div>
+
+      {/* ✅ Success Toast UI */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            transition={{ type: "spring", stiffness: 120, damping: 12 }}
+            className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 bg-[#4b6f44] text-white rounded-full shadow-lg"
+          >
+            <span className="material-symbols-outlined text-lg">check_circle</span>
+            <p className="text-sm font-medium">Added to cart</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
