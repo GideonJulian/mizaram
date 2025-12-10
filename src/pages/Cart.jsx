@@ -25,7 +25,8 @@ const Cart = () => {
                   <div className="flex items-start gap-6">
                     <div
                       className="bg-center bg-no-repeat bg-cover rounded-lg h-24 w-24 flex-shrink-0 "
-                      style={{ backgroundImage: `url${item.front_image}` }}
+                   style={{ backgroundImage: `url(${item.front_image})` }}
+
                     ></div>
                     <div className="flex flex-1 flex-col justify-center gap-1">
                       <p className="text-base font-medium text-[#333]">
