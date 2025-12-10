@@ -60,11 +60,20 @@ const Cart = () => {
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* summary */}
-          <div className="lg:col-span-1 mt-10 lg:mt-0">
-            <div className="bg-white p-6 lg:p-8 rounded-lg shadow-sm border border-[#f2f4f0] sticky top-28"></div>
+            {/* summary */}
+            <div className="lg:col-span-1 mt-10 lg:mt-0">
+              <div className="bg-white p-6 lg:p-8 rounded-lg shadow-sm border border-[#f2f4f0] sticky top-28">
+                <h2 className="text-2xl font-bold tracking-tight pb-4 border-b border-[#f2f4f0]">
+                  Order Summar
+                </h2>
+                <div>
+                  <button className="flex w-full mt-8 cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-[#4b6f44] text-white text-base font-bold tracking-wide hover:bg-[#4b6f44e6] transition-colors shadow-sm">
+                    Proceed to Checkout
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
