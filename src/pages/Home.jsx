@@ -47,96 +47,59 @@ function Home() {
   }, []);
   return (
     <div className="">
-      <section className="relative overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('/src/assets/hero.png')`,
-          }}
-        ></div>
-
-        {/* Soft Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60"></div>
-
-        {/* Floating Decorations */}
-        <motion.div
-          animate={{ y: [0, -15, 0] }}
-          transition={{ duration: 6, repeat: Infinity }}
-          className="absolute top-10 left-6 w-20 h-20 bg-white/10 rounded-full blur-2xl"
-        ></motion.div>
-
-        <motion.div
-          animate={{ y: [0, 20, 0] }}
-          transition={{ duration: 7, repeat: Infinity }}
-          className="absolute bottom-14 right-10 w-24 h-24 bg-[#6a8f5f]/10 rounded-full blur-3xl"
-        ></motion.div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 sm:py-32 flex justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="
-        backdrop-blur-md 
-        bg-white/10 
-        p-8 sm:p-10 
-        rounded-3xl 
-        max-w-2xl 
-        text-center 
-        border border-white/20 
-        shadow-xl
-      "
-          >
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white"
-            >
-              Mizaram Nature’s Glow, Redefined.
-            </motion.h1>
-
-            {/* Paragraph */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="mt-4 text-lg text-white/90 leading-relaxed"
-            >
-              Elevate your skincare ritual with gentle, effective,
-              naturally-sourced formulations crafted for radiant, healthy skin.
-            </motion.p>
-
-            {/* Button */}
-            <motion.button
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6 }}
-              whileHover={{
-                scale: 1.08,
-                boxShadow: "0 8px 30px rgba(74,106,80,0.45)",
-              }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => navigate("/shop")}
-              className="
-          mt-8 
-          bg-[#6a8f5f] 
-          text-white 
-          font-semibold 
-          text-base 
-          px-10 
-          py-4 
-          rounded-full 
-          shadow-md 
-          transition-all
-        "
-            >
-              Shop The Collection
-            </motion.button>
-          </motion.div>
-        </div>
+      <section className="relative">
+        {" "}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28">
+          {" "}
+          <div className="hero flex min-h-[500px] flex-col items-center justify-center gap-6 rounded-xl bg-cover bg-center bg-no-repeat p-8 text-center">
+            {" "}
+            <div className="flex flex-col gap-4 max-w-2xl">
+              {" "}
+              {/* Heading with on-load animation */}{" "}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl"
+              >
+                {" "}
+                Mizaram: Radiance, Naturally.{" "}
+              </motion.h1>{" "}
+              {/* Paragraph with on-load animation */}{" "}
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="text-lg text-white/90"
+              >
+                {" "}
+                Embrace your natural beauty with our holistic self-care
+                products, rooted in nature.{" "}
+              </motion.p>{" "}
+              {/* Button with on-load + hover animation */}{" "}
+              <motion.button
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.6,
+                  type: "spring",
+                  stiffness: 120,
+                }}
+                whileHover={{
+                  scale: 1.07,
+                  boxShadow: "0px 8px 20px rgba(74,106,80,0.4)",
+                }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => navigate("/shop")}
+                className="flex cursor-pointer max-w-xs mx-auto items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[#4a6a50] text-white text-base font-bold"
+              >
+                {" "}
+                Shop The Collection{" "}
+              </motion.button>{" "}
+            </div>{" "}
+          </div>{" "}
+        </div>{" "}
       </section>
 
       <div>
@@ -239,4 +202,4 @@ export default Home;
 //
 //
 //
-// <section className="relative"> <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-28"> <div className="hero flex min-h-[500px] flex-col items-center justify-center gap-6 rounded-xl bg-cover bg-center bg-no-repeat p-8 text-center"> <div className="flex flex-col gap-4 max-w-2xl"> {/* Heading with on-load animation */} <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl" > Mizaram: Radiance, Naturally. </motion.h1> {/* Paragraph with on-load animation */} <motion.p initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="text-lg text-white/90" > Embrace your natural beauty with our holistic self-care products, rooted in nature. </motion.p> {/* Button with on-load + hover animation */} <motion.button initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6, type: "spring", stiffness: 120, }} whileHover={{ scale: 1.07, boxShadow: "0px 8px 20px rgba(74,106,80,0.4)", }} whileTap={{ scale: 0.98 }} onClick={()=> navigate('/shop')} className="flex cursor-pointer max-w-xs mx-auto items-center justify-center overflow-hidden rounded-full h-12 px-8 bg-[#4a6a50] text-white text-base font-bold" > Shop The Collection </motion.button> </div> </div> </div> </section>
+//
